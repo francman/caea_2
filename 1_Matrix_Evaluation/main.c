@@ -3,20 +3,22 @@
 *
 */
 
+// Matrix Computation C=(A^-1)*(B)
+
 #include <stdio.h>
 
 void transposeFunction(int row, int column, float matrix[][column], float matrixTranspose[][row]);
-
 void printMatrix(int m, int n, float arr[][n]);
-
 void gess_( int *, float *, int *, float *, int * , int *, float * );
-
 
 int main(int argc, char** argv){
     int N, IA, IB, NB;
     float cond;
 
     //defining matrix A
+    //      [-2 1 2]
+    // A =  [2 3 -2]
+    //      [1 -2 3]
     float A[3][3] = {{-2, 1, 2},{2, 3, -2},{1, -2, 3}};
 
     //Defining matrix B
@@ -24,29 +26,27 @@ int main(int argc, char** argv){
 
     float ATranspose[3][3];
     float BTranspose[3][3];
+    float C[3][3];
 
-    //Transposing Matrix A and B
-    for(int i=0; i<3; i++){
-        for(int j=0; j<3;j++){
-            ATranspose[j][i] = A[i][j];
-            BTranspose[j][i] = B[i][j];
-        }
-    }
+    transposeFunction(3, 3, A, ATranspose);
+    transposeFunction(3, 3, B, BTranspose);
 
-    N = 3;
+    N=3;
     IA=3;
     IB=3;
     NB=3;
 
     gess_( (int *)&N, (float *)&ATranspose, (int *)&IA, (float *)&BTranspose, (int *)&IB, (int *)&NB, (float *)&cond);
 
-	transposeFunction(3, 3, BTranspose, B);
-	printMatrix(3, 3, B);
+	transposeFunction(3, 3, BTranspose, C);
+	printMatrix(3, 3, C);
 
     return 0;
 }
 
-//
+// Input: row, column, matrix[][]
+// Output: matrixTranspose[][]
+// matrixTranspose[][] is modified in place
 void transposeFunction(int row, int column, float matrix[][column], float matrixTranspose[][row]){
     int i, j;
 
@@ -58,13 +58,14 @@ void transposeFunction(int row, int column, float matrix[][column], float matrix
 }
 
 //
-void printMatrix(int m, int n, float arr[][n]) { 
+void printMatrix(int m, int n, float matrix[][n]) { 
     int i, j; 
 
     for (i = 0; i < m; i++){
     	for (j = 0; j < n; j++){ 
-        	printf("%.3f\t", arr[i][j]);
+        	printf("%.3f\t", matrix[i][j]);
     	}
     	printf("\n");
-    } 
+    }
+    printf("\n");
 }

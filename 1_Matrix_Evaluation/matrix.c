@@ -1,5 +1,5 @@
 #include <stdio.h>
-// #include "matrix.h"
+#include "matrix.h"
 
 //
 void transposeFunction(int row, int column, float matrix[][column], float matrixTranspose[][row]){
